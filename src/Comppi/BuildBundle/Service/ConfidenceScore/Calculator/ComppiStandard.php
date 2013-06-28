@@ -78,14 +78,14 @@ class ComppiStandard implements CalculatorInterface
 
             foreach ($interactions as $interaction) {
 
-				echo("DEBUG: Memory usage (step 1):" . memory_get_usage()."\n");
+//				echo("DEBUG: Memory usage (step 1):" . memory_get_usage()."\n");
 				$score = 0;
                 $score = $this->CalculateLinkConfidence($interaction['id']);
-				echo("DEBUG: Memory usage (step 2):" . memory_get_usage()."\n");
+//				echo("DEBUG: Memory usage (step 2):" . memory_get_usage()."\n");
                 $insert->bindValue(1, $interaction['id']);
                 $insert->bindValue(3, $score);
                 $insert->execute();
-				echo("DEBUG: Memory usage (step 3):" . memory_get_usage()."\n\n");
+//				echo("DEBUG: Memory usage (step 3):" . memory_get_usage()."\n\n");
             }
 
             $connection->commit();
@@ -109,6 +109,7 @@ class ComppiStandard implements CalculatorInterface
         // @TODO this hack is required here because of a PDO bug
         // https://bugs.php.net/bug.php?id=44639
         $connection->getWrappedConnection()->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
+        $connection->getConfiguration()->setSQLLogger(null);
         
         ProteinScoreCalculator::$localizationTranslator=$this->localizationTranslator;
         ProteinScoreCalculator::$compartments=array_keys($this->localizationTranslator->getLargelocs());
