@@ -2,6 +2,7 @@ Release 2014-09-27
 ==================
 - remaining secondary UniProt accessions are mapped to the corresponding primary IDs using the UniProt 2014_08 release
 - updated network visualization with toggle display function
+- interactors pages are accessible by primary protein name instead of ComPPI ID (protein_search/interactors/<comppi_id> -> protein_search/interactors/<protein name>)
 
 Release 2014-09-19
 ==================
