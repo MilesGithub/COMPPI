@@ -5,8 +5,6 @@ ComppiProteinSearchBundle_proteinsearch:
 ComppiProteinSearchBundle_interactors_by_name:
     pattern:  /protein_search/interactors/{name}/{get_interactions}
     defaults: { _controller: ComppiProteinSearchBundle:ProteinSearch:interactorsByName, get_interactions: '' }
-    requirements:
-        name: "^[a-zA-Z][0-9a-zA-Z]{5}$"
 
 ComppiProteinSearchBundle_interactors:
     pattern:  /protein_search/interactors/{comppi_id}/{get_interactions}
