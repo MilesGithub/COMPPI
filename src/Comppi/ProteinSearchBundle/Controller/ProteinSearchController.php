@@ -352,9 +352,15 @@ class ProteinSearchController extends Controller
 			// only 1 protein ID = exact match -> display the interators page
 			if (count($PID_POOL)==1)
 			{
+				// link to interactor page by protein name instead of comppi ID
+				$r_name_by_pid = $DB->executeQuery(
+					"SELECT proteinName FROM Protein WHERE id = ?",
+					array($PID_POOL[0])
+				);
+				
 				return $this->redirect($this->generateUrl(
-					'ComppiProteinSearchBundle_interactors',
-					array('comppi_id' => $PID_POOL[0]))
+					'ComppiProteinSearchBundle_interactors_by_name',
+					array('name' => $r_name_by_pid->fetchColumn(0)))
 				);
 			}
 			// multiple protein IDs -> display the intermediate page to select one
@@ -383,6 +389,7 @@ class ProteinSearchController extends Controller
 					$pids[] = $p->proteinId;
 					$T['ls'][] = array(
 						'comppi_id' => $p->proteinId,
+						'id_for_link' => $p->proteinName,
 						'name' => $p->name,
 						'name2' => $p->proteinName,
 						'namingConvention' => $p->namingConvention,
@@ -855,6 +862,42 @@ class ProteinSearchController extends Controller
 
         return new Response(json_encode($list));
 	}
+	
+	
+	/* Access the interactors by UniProt name
+	 * @var string $name
+	 * @var string $get_interactions
+	 * @return string
+	 */
+	public function interactorsByNameAction($name, $get_interactions) {
+		
+		$r_id = $this->getDbConnection()->executeQuery(
+			"SELECT id FROM Protein WHERE proteinName = ?",
+			array($name)
+		);
+		if ($r_id === false) {
+			die('Interactor query failed!');
+		}
+		
+		$comppi_ids = [];
+		while ($cid = $r_id->fetch()) {
+			$comppi_ids[] = $cid['id'];
+		}
+		$comppi_ids = array_unique($comppi_ids);
+		
+		//die(var_dump($comppi_ids));
+		
+		if (count($comppi_ids) === 1) {
+			return $this->interactorsAction($comppi_ids[0], $get_interactions);
+		} else {
+			return $this->render(
+				'ComppiProteinSearchBundle:ProteinSearch:interactors_by_uniprot.html.twig',
+				array(
+					'name' => $name
+				)
+			);
+		}
+	}
 
 
 	private function getProteinDetails($comppi_id, $requested_major_locs = array(), $loc_prob = 0)
@@ -871,7 +914,7 @@ class ProteinSearchController extends Controller
 		$syns = $this->getProteinSynonyms(array($comppi_id));
 		$prot_details['synonyms'] = (!empty($syns[$comppi_id]['synonyms']) ? $syns[$comppi_id]['synonyms'] : []);
 		$prot_details['fullname'] = (!empty($syns[$comppi_id]['syn_fullname']) ? $syns[$comppi_id]['syn_fullname'] : '');
-		$prot_details['uniprot_link'] = (!empty($this->uniprot_root.$prot_details['name']) ? $this->uniprot_root.$prot_details['name'] : '');
+		$prot_details['uniprot_link'] = (!empty($prot_details['name']) ? $this->uniprot_root.$prot_details['name'] : '');
 
 		return $prot_details;
 	}

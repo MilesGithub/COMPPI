@@ -1,0 +1,9 @@
+{# src/Comppi/ProteinSearchBundle/Resources/views/interactors_by_uniprot.html.twig #}
+{% extends '::base.html.twig' %}
+
+{% block title %}ComPPI - Protein by UniProt Naming Convention - The Compartmentalized Protein-Protein Interaction Database{% endblock %}
+
+{% block bundlecontent %}
+	<p class="msg_error">No proteins were found by the name '{{ name }}' or the results are ambiguous.
+	<br><h1 class="center"><a href="{{ path('ComppiProteinSearchBundle_proteinsearch') }}">Please try the search form</a></h1>
+{% endblock %}
