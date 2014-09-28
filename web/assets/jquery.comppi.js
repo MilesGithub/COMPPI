@@ -327,9 +327,9 @@ $(document).ready(function(){
 	
 	var showNotice = function() {
 		$("#ps-networkVisBody").append(
-			"<p class=\"center\" id=\"ps-networkVisBodyLargeNetworkNote\">The network contains "
+			"<p class=\"center\" id=\"ps-networkVisBodyLargeNetworkNote\">This first-neighbour network contains "
 			+ graph.nodes.length
-			+ " nodes, its rendering may slow down or temporarily hang your browser. <br><b>Click on 'Toggle Display' to start the rendering.</b></p>");
+			+ " nodes, therefore its visualization may slow down your browser. <br><b>Click on 'Toggle Display' to start network visualization.</b></p>");
 	}
 	
 	var removeNotice = function() {
