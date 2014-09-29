@@ -195,8 +195,8 @@ li { list-style-type: square; }
 }
 .fancy_box_header h1 {
 	float: left;
-	margin: 0 !important;
-	padding: 0 !important;
+	margin: 0 10px;
+	padding: 0;
 	font-weight: normal;
 	font-size: 2em;
 	white-space: nowrap;
@@ -427,7 +427,7 @@ label#fIntFiltLocLabel { width: 120px; }
 
 /* NETWORK VISUALIZATION */
 #ps-networkVis { text-align: center; }
-#ps-networkVis h1 { width: 800px; text-align: left; }
+#ps-networkVis h1 { width: 730px; text-align: left; }
 .fancy_box_header a.ps-networkVisOpener {
 	display: block;
 	float: right;
