@@ -496,34 +496,41 @@ class ProteinSearchController extends Controller
 		// FILTER: MAJOR LOCALIZATIONS
 		foreach ($this->majorloc_list as $mloc_code => $mloc_name)
 		{
-			if (!isset($get_interactions) or $get_interactions!='download') {
-				// the defaults are always set = always "reset"
+			if ((isset($_SESSION['majorloc_list']) || isset($get_interactions)) &&
+				!isset($_POST['fIntFiltSubmit']) && !isset($_POST['fIntFiltReset']) )
+			{
+				$T['majorloc_list'][$mloc_code] = array(
+					'code' => $mloc_code,
+					'name' => $mloc_name,
+					'checked' => $_SESSION['majorloc_list'][$mloc_code]
+				);
+			}
+			elseif (isset($_POST['fIntFiltLoc'][(string)$mloc_code]) &&
+					!isset($_POST['fIntFiltReset']))
+			{
+				$T['majorloc_list'][$mloc_code] = array(
+					'code' => $mloc_code,
+					'name' => $mloc_name,
+					'checked' => true
+				);
+			}
+			elseif (isset($_POST['fIntFiltReset'])) {
 				$T['majorloc_list'][$mloc_code] = array(
 					'code' => $mloc_code,
 					'name' => $mloc_name,
 					'checked' => true
 				);
 				$_SESSION['majorloc_list'][$mloc_code] = true;
+			} else {
+				$T['majorloc_list'][$mloc_code] = array(
+					'code' => $mloc_code,
+					'name' => $mloc_name,
+					'checked' => false
+				);
+				$_SESSION['majorloc_list'][$mloc_code] = false;
 			}
-			
-			// set the requested value if the form was posted
-			if ($request_m=='POST' && !isset($_POST['fIntFiltReset'])) {
-				if (!isset($_POST['fIntFiltLoc'][(string)$mloc_code])) {
-					$T['majorloc_list'][$mloc_code]['checked']
-						= $_SESSION['majorloc_list'][$mloc_code]
-						= false;
-				}
-			}
-			// set from session
-			elseif (
-				!isset($_POST['fIntFiltReset']) &&
-				isset($_SESSION['majorloc_list'][$mloc_code])
-			) {
-				$T['majorloc_list'][$mloc_code]['checked'] = $_SESSION['majorloc_list'][$mloc_code];
-			}
-			// else would be the default, already set above
 		}
-
+		
 		$requested_major_locs = [];
 		foreach ($T['majorloc_list'] as $mloc_name => $mloc_d)
 		{
@@ -869,8 +876,8 @@ class ProteinSearchController extends Controller
 	 * @var string $get_interactions
 	 * @return string
 	 */
-	public function interactorsByNameAction($name, $get_interactions) {
-		
+	public function interactorsByNameAction($name, $get_interactions)
+	{
 		$r_id = $this->getDbConnection()->executeQuery(
 			"SELECT id FROM Protein WHERE proteinName = ?",
 			array($name)
@@ -884,8 +891,6 @@ class ProteinSearchController extends Controller
 			$comppi_ids[] = $cid['id'];
 		}
 		$comppi_ids = array_unique($comppi_ids);
-		
-		//die(var_dump($comppi_ids));
 		
 		if (count($comppi_ids) === 1) {
 			return $this->interactorsAction($comppi_ids[0], $get_interactions);
