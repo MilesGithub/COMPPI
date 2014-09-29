@@ -204,8 +204,8 @@ li { list-style-type: square; }
 .fancy_box_header a { color: #fff; }
 .fancy_box_body {
 	clear: both;
-	margin-top: 7px;
-	padding: 10px;
+	margin: 7px 0 0 0;
+	padding: 10px 10px 10px 0;
 	border: 1px solid rgb(150, 152, 155);
 	background-color: #fff;
     box-shadow: 5px 5px 5px 0px #999;
@@ -427,7 +427,7 @@ label#fIntFiltLocLabel { width: 120px; }
 
 /* NETWORK VISUALIZATION */
 #ps-networkVis { text-align: center; }
-#ps-networkVis h1 { width: 600px; }
+#ps-networkVis h1 { width: 800px; text-align: left; }
 .fancy_box_header a.ps-networkVisOpener {
 	display: block;
 	float: right;
