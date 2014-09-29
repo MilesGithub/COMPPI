@@ -427,16 +427,16 @@ label#fIntFiltLocLabel { width: 120px; }
 
 /* NETWORK VISUALIZATION */
 #ps-networkVis { text-align: center; }
-#ps-networkVis h1 { width: 730px; text-align: left; }
+#ps-networkVis h1 { width: 700px; text-align: left; }
 .fancy_box_header a.ps-networkVisOpener {
 	display: block;
 	float: right;
-	width: 240px;
-	margin-top: 5px;
+	width: 200px;
 	text-align: right;
 	text-transform: uppercase;
 	font-size: 1.3em;
 	font-weight: 600;
+	border: 1px solid blue;
 }
 #ps-networkVisContainer { background-color: #fff; }
 .node {
