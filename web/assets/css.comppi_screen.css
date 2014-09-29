@@ -184,7 +184,7 @@ li { list-style-type: square; }
 }
 .fancy_box_header {
 	height: 35px;
-	margin: 0;
+	margin: 0 !important;
 	padding: 12px 10px 0px 10px;
 	color: #fff;
 	background-color: rgb(150, 152, 155);
@@ -195,10 +195,11 @@ li { list-style-type: square; }
 }
 .fancy_box_header h1 {
 	float: left;
-	margin: 0;
-	padding: 0;
+	margin: 0 !important;
+	padding: 0 !important;
 	font-weight: normal;
 	font-size: 2em;
+	white-space: nowrap;
 }
 .fancy_box_header a { color: #fff; }
 .fancy_box_body {
