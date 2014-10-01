@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 from export_downloads import ComppiInterface
 
 # filter to species: -1: disabled, 0 (human), 1 (drosi), 2 (c.elegans), 3 (yeast)
-species_filter = [-1, 0, 1, 2]
+species_filter = [-1, 0, 1, 2, 3]
 
 # group of custom sources, currently set to protein-protein interaction databases
 custom_source_group = ['MINT', 'IntAct', 'MIPS', 'DroID', 'MatrixDB', 'BioGRID', 'HPRD', 'DIP', 'CCSB']
