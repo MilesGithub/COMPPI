@@ -160,7 +160,7 @@
 			{% if p.syn_fullname is defined %}<h2 class="ps-detailLabel">{{ p.syn_fullname }}</h2>{% endif %}
 
 			<ul class="listWithSeparator not-hovered-list">
-				<li><a href="{{ path('ComppiProteinSearchBundle_proteinsearch') }}/interactors/{{ p.prot_id }}" title="Click to open the interactors of {{ p.prot_name }} on a new tab." target="_blank">ComPPI Interactors</a></li>
+				<li><a href="{{ path('ComppiProteinSearchBundle_proteinsearch') }}/interactors/{{ p.prot_name }}" title="Click to open the interactors of {{ p.prot_name }} on a new tab." target="_blank">ComPPI Interactors</a></li>
 				{% if p.uniprot_outlink is defined %}
 				<li><a href="{{ p.uniprot_outlink }}" title="Find more information about {{ protein.name }} in the UniProt database" target="_blank">UniProtKB Profile&nbsp;<img src="{{ asset('assets/linkout.png') }}" /></a></li>
 				{% endif %}
